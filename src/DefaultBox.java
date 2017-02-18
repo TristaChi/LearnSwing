@@ -11,7 +11,8 @@ public class DefaultBox {
 
     public DefaultBox(Color color, Dimension size) {
         this.color = color;
-        bounds = new Rectangle(new Point(0, 0), size);
+
+        bounds = new Rectangle(new Point(0,300), size);
     }
 
     public int getCurrentX(){
