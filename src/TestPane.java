@@ -10,8 +10,13 @@ import javax.swing.Timer;
 
 public class TestPane extends JPanel {
     private ArrayList<Box> boxes;
+    private int width;
+    private int height;
    
-    public TestPane() {
+    public TestPane(int width, int height) {
+    	this.width = width;
+    	this.height = height;
+    	
         boxes = new ArrayList<Box>();
         for (int index = 0; index < 100; index++) {
             boxes.add(new DefaultBox(Color.RED, new Dimension(10, 10)));
@@ -20,8 +25,8 @@ public class TestPane extends JPanel {
         Timer timer = new Timer(40, new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				for (Box box : boxes) {
-					int x = (int)(Math.random() * 600);
-					int y = (int)(Math.random() * 500);
+					int x = (int)(Math.random() * width);
+					int y = (int)(Math.random() * height);
                     box.update(x, y);
                 }
                 repaint();
