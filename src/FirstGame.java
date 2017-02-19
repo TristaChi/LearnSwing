@@ -13,7 +13,7 @@ public class FirstGame extends JFrame {
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         
-        TestPane testPanel = new TestPane(600,500);
+        TestPane testPanel = new TestPane(600,500,this);
         this.add(testPanel);
     }
 
