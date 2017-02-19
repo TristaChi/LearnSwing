@@ -4,34 +4,55 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
-import java.awt.event.WindowEvent;
 import java.util.ArrayList;
-
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
 public class TestPane extends JPanel implements MouseMotionListener {
-	final double pre = System.currentTimeMillis();
+	
+	private double pre = System.currentTimeMillis();
     private ArrayList<Arrow> arrowes;
     private int timerTickCount = 0;
     private Arrow myMainArrow;
+    private Timer timer = null;
     
-    public TestPane(int width, int height, JFrame firstGameFrame) {  
+    public TestPane(int width, int height, FirstGame firstGameFrame) {  
     	
     	this.addMouseMotionListener(this); 	
-		myMainArrow = new Arrow(Color.BLUE, new Dimension(20,20));
-    	
+		myMainArrow = new Arrow(Color.BLUE, new Dimension(15,15));
+		
     	arrowes = new ArrayList<Arrow>();
-        for (int index = 0; index < 1000; index++) {
+        for (int index = 0; index < 1500; index++) {
         	arrowes.add(new Arrow(Color.RED, new Dimension(10, 10)));
         }
+        
+        firstGameFrame.jb.addActionListener(new ActionListener()
+		{
+		  public void actionPerformed(ActionEvent e)
+		  {
+		    if (!timer.isRunning()){
+		    	timer.start();
+		    	timerTickCount = 0;
+		    	pre = System.currentTimeMillis();
+		    	
+		    	for (Arrow arrow: arrowes){
+		    		int rand = (int)(Math.random()*2);
+		    		if (rand == 1){
+		    			arrow.update(arrow.StartPointX(), 0);
+		    		}
+		    		else{
+		    			arrow.update(0, arrow.StartPointY());
+		    		}
+		    	}
+		    	
+		    	firstGameFrame.jb.setText("Hello, Welcome for coming");
+		    }
+		  }
+		});
 
-        Timer timer = new Timer(40, new ActionListener() {
+        timer = new Timer(40, new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				timerTickCount ++;
 				int numberOfArrowesToShow = Math.min(arrowes.size()-1, (timerTickCount));
@@ -43,8 +64,10 @@ public class TestPane extends JPanel implements MouseMotionListener {
 					int nextYPosition = GetNextYPosition(arrow.getCurrentY(), height, myYPosition);
 					
 					if (CollisionDetect(arrow.getCurrentX(), myXPosition, arrow.getCurrentY(), myYPosition)){
-						firstGameFrame.dispatchEvent(new WindowEvent(firstGameFrame, WindowEvent.WINDOW_CLOSING));
-						//System.out.println("You lose.");	
+						double post= System.currentTimeMillis();
+			    		String resultText = "You have last: "+ (double)(post-pre)/1000.0+ "seconds! Clcik to restart.";
+			    		firstGameFrame.jb.setText(resultText);
+						timer.stop();
 					}
 					
                     arrow.update(nextXPosition, nextYPosition);
@@ -57,15 +80,7 @@ public class TestPane extends JPanel implements MouseMotionListener {
     }
     
     private boolean CollisionDetect(int currentX, int myXPosition, int currentY, int myYPosition){
-    	if (currentX-myXPosition <= 20 && myXPosition-currentX <= 10 && currentY-myYPosition <= 20 && myYPosition-currentY <= 10){
-    		double post= System.currentTimeMillis();
-    		System.out.println("You have last: "+ (double)(post-pre)/1000.0+ "seconds, Great Job!");
-    		System.out.printf("The score you get is: %.2f", (Math.pow((double)(post-pre)/1000,2))*100);
-    		return true;
-    	}
-    	else{
-    		return false;
-    		}
+    	return (currentX-myXPosition <= 20 && myXPosition-currentX <= 10 && currentY-myYPosition <= 20 && myYPosition-currentY <= 10);
     }
     
     private int GetNextXPosition(int currentX, int width, int myXPosition){

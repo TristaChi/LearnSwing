@@ -33,12 +33,12 @@ public class Arrow {
     }
     
     public int StartPointX(){
-    	int startPointX = (int)(Math.random()*600);
+    	int startPointX = (int)(Math.random()*1000);
     	return startPointX;
     }
     
     public int StartPointY(){
-    	int startPointY = (int)(Math.random()*500);
+    	int startPointY = (int)(Math.random()*1000);
     	return startPointY;
     }
     
