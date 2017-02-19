@@ -10,11 +10,13 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-public class DefaultBox {
+public class Arrow {
     private Color color;
     private Rectangle bounds;
     
-    public DefaultBox(Color color, Dimension size) {    	
+    public Arrow(Color color, Dimension size) {
+    	
+    	
         this.color = color;
         int rand = (int)(Math.random()*4);
         switch (rand){
