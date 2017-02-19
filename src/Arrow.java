@@ -24,9 +24,9 @@ public class Arrow {
         		break;
         	case 2: bounds = new Rectangle(new Point(StartPointX(),0), size);
         		break;
-        	case 3: bounds = new Rectangle(new Point(600,StartPointY()), size);
+        	case 3: bounds = new Rectangle(new Point(1000,StartPointY()), size);
     			break;
-    		default: bounds = new Rectangle(new Point(StartPointX(),500), size);
+    		default: bounds = new Rectangle(new Point(StartPointX(),1000), size);
 				break;
         	
         }

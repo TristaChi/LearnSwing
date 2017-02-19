@@ -8,12 +8,12 @@ public class FirstGame extends JFrame {
 
     private void initUI() {
         setTitle("十面埋伏");
-        setSize(600, 500);
+        setSize(1000, 1000);
         setResizable(false);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         
-        TestPane testPanel = new TestPane(600,500,this);
+        TestPane testPanel = new TestPane(1000,1000,this);
         this.add(testPanel);
     }
 

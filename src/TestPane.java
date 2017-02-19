@@ -27,7 +27,7 @@ public class TestPane extends JPanel implements MouseMotionListener {
 		myMainArrow = new Arrow(Color.BLUE, new Dimension(20,20));
     	
     	arrowes = new ArrayList<Arrow>();
-        for (int index = 0; index < 100; index++) {
+        for (int index = 0; index < 1000; index++) {
         	arrowes.add(new Arrow(Color.RED, new Dimension(10, 10)));
         }
 
@@ -35,7 +35,7 @@ public class TestPane extends JPanel implements MouseMotionListener {
 			public void actionPerformed(ActionEvent e) {
 				timerTickCount ++;
 				int numberOfArrowesToShow = Math.min(arrowes.size()-1, (timerTickCount));
-				for (Arrow arrow : arrowes.subList(0, numberOfArrowesToShow/5)) {
+				for (Arrow arrow : arrowes.subList(0, numberOfArrowesToShow/3)) {
 					
 					int myXPosition = myMainArrow.getCurrentX();
 					int myYPosition = myMainArrow.getCurrentY();
@@ -57,7 +57,7 @@ public class TestPane extends JPanel implements MouseMotionListener {
     }
     
     private boolean CollisionDetect(int currentX, int myXPosition, int currentY, int myYPosition){
-    	if (Math.abs(currentX-myXPosition) <= 10 && Math.abs(currentY-myYPosition) <= 10){
+    	if (currentX-myXPosition <= 20 && myXPosition-currentX <= 10 && currentY-myYPosition <= 20 && myYPosition-currentY <= 10){
     		double post= System.currentTimeMillis();
     		System.out.println("You have last: "+ (double)(post-pre)/1000.0+ "seconds, Great Job!");
     		System.out.printf("The score you get is: %.2f", (Math.pow((double)(post-pre)/1000,2))*100);
